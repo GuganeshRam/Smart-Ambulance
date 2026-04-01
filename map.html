@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ambulance Map</title>
+
+    <script src="map_data.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj6vP2jK2BAEtBJytcYMdrwKMJqDO5I1M"></script>
+
+    <style>
+        body { margin:0; font-family: Arial; }
+        #map { height: 100vh; width: 100%; }
+    </style>
+
+    <script>
+        function initMap() {
+
+            const selectedAmbulance = localStorage.getItem("ambulance");
+
+            const amb = ambulances[selectedAmbulance - 1];
+
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 14,
+                center: amb
+            });
+
+            new google.maps.Marker({
+                position: amb,
+                map: map,
+                icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+            });
+
+            new google.maps.Marker({
+                position: hospital,
+                map: map,
+                icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+            });
+
+            const directionsService = new google.maps.DirectionsService();
+            const directionsRenderer = new google.maps.DirectionsRenderer();
+
+            directionsRenderer.setMap(map);
+
+            directionsService.route({
+                origin: amb,
+                destination: hospital,
+                travelMode: 'DRIVING'
+            }, (res, status) => {
+                if (status === "OK") directionsRenderer.setDirections(res);
+            });
+        }
+    </script>
+</head>
+
+<body onload="initMap()">
+<div id="map"></div>
+</body>
+</html>

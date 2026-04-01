@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Hospital</title>
+    <style>
+        body { font-family: Arial; text-align: center; background: #f5f7fa; }
+        h1 { margin-top: 50px; }
+
+        .btn {
+            display: block;
+            margin: 20px auto;
+            padding: 15px;
+            width: 250px;
+            background: #007bff;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Select Hospital</h1>
+
+<div class="btn" onclick="selectHospital('apollo')">Apollo Hospital</div>
+<div class="btn" onclick="selectHospital('fortis')">Fortis Hospital</div>
+<div class="btn" onclick="selectHospital('miot')">MIOT Hospital</div>
+
+<script>
+function selectHospital(hospital) {
+    localStorage.setItem("hospital", hospital);
+    window.location.href = "ambulance.html";
+}
+</script>
+
+</body>
+</html>
